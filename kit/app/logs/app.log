@@ -1,0 +1,6 @@
+2024-09-15 22:48:20,710 INFO main: Hello shahih
+2024-09-15 22:50:03,322 INFO main: Hello shahin
+2024-09-15 22:50:03,323 DEBUG main: {'name': 'Shahin', 'age': 20}
+2024-09-15 22:50:25,600 INFO main: Hello shahin
+2024-09-15 22:50:25,600 DEBUG main: ddd
+2024-09-15 22:51:30,060 INFO main: Hello shahin

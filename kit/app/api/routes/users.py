@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from app.crud import user as user_crud
 from app.schemas.user import User, UserCreate
 from app.core.database import SessionLocal
+from app.core.logger import setup_logger
+logger = setup_logger('main_logger', 'app/logs/app.log')
 
 router = APIRouter()
 
@@ -15,6 +17,7 @@ def get_db():
 
 @router.post("/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    logger.info(user)
     db_user = user_crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")

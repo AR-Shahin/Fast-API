@@ -10,7 +10,7 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    # items: List[Item] = []
+    items: List[Item] = []
 
     class Config:
         from_attributes = True

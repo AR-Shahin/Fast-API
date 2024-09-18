@@ -1,3 +1,35 @@
 2024-09-18 10:26:17,203 INFO todos_route: Mapper 'Mapper[User(users)]' has no property 'items'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
 2024-09-18 10:26:17,203 INFO todos_route: Mapper 'Mapper[User(users)]' has no property 'items'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
 2024-09-18 10:26:17,203 INFO todos_route: Mapper 'Mapper[User(users)]' has no property 'items'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2024-09-18 11:03:45,529 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:03:45,529 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:03:45,529 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:04:04,406 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:04:04,406 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:04:04,406 INFO todos_route: (pymysql.err.ProgrammingError) (1146, "Table 'fast_common.todos' doesn't exist")
+[SQL: INSERT INTO todos (title, priority, status, description, user_id) VALUES (%(title)s, %(priority)s, %(status)s, %(description)s, %(user_id)s)]
+[parameters: {'title': 'ars', 'priority': 1, 'status': 0, 'description': 'hi', 'user_id': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-18 11:35:18,605 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:18,605 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:18,605 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:18,605 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:42,642 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:42,642 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:42,642 INFO todo_repository: 'generator' object has no attribute 'add'
+2024-09-18 11:35:42,642 INFO todo_repository: 'generator' object has no attribute 'add'

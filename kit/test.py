@@ -15,22 +15,22 @@ async def root():
 # File: app/core/database.py
 
 
-# File: app/models/user.py
+# File: app/models/User.py
 
 
 # File: app/models/todo_repository.py
 
 
-# File: app/schemas/user.py
+# File: app/schemas/User.py
 
 
 # File: app/schemas/todo_repository.py
 
 
-# File: app/crud/user.py
+# File: app/crud/User.py
 from sqlalchemy.orm import Session
-from app.models.user import User
-from app.schemas.user import UserCreate
+from app.models.User import User
+from app.schemas.user_request import UserCreate
 
 def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
@@ -68,7 +68,7 @@ def create_user_item(db: Session, item: ItemCreate, user_id: int):
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.crud import user as user_crud
-from app.schemas.user import User, UserCreate
+from app.schemas.user_request import User, UserCreate
 from app.core.database import SessionLocal
 
 router = APIRouter()

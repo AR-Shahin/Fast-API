@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
 
 pymysql.install_as_MySQLdb()
-# MySQL connection, no need for 'check_same_thread'
+
 engine = create_engine(settings.DATABASE_URL_MYSQL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

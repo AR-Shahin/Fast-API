@@ -3,10 +3,7 @@ from fastapi import FastAPI
 from app.api.routes import items, users
 from app.core.config import settings
 
-app = FastAPI(title=settings.PROJECT_NAME)
 
-app.include_router(users.router, prefix="/users", tags=["users"])
-app.include_router(items.router, prefix="/items", tags=["items"])
 
 @app.get("/")
 async def root():

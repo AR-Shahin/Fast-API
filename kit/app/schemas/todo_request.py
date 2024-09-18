@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 class TodoRequest(BaseModel):
     title: str = "This is a demo todo."
-    priority: int
-    description: Union[str | None]
+    priority: int = 0
+    description: Optional[str | None] = None
 
 
 class TodoResponse(TodoRequest):

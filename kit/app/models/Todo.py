@@ -6,7 +6,9 @@ class Todo(Base):
     __tablename__ = "todos"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
+    title = Column(String(255))
     priority = Column(Integer, default=0)
     status = Column(Boolean, default=0)
     description = Column(Text, nullable=True)
+
+

@@ -11,8 +11,8 @@ app = FastAPI(title=settings.PROJECT_NAME)
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
 routers: (str, str, str) = [
-    (users.router, "/users", "users"),
-    (items.router, "/items", "items"),
+    # (users.router, "/users", "users"),
+    # (items.router, "/items", "items"),
     (todos_route.router, "/todos", "todos")
 ]
 
@@ -33,5 +33,5 @@ async def root():
         "name": "Shahin",
         "age": 20
     }
-    logger.info("Hello shahin")
+
     return {"message": "Welcome to FastAPI!"}

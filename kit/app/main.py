@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from app.core.config import settings
 from app.core.logger import setup_logger
-from app.api.routes import users, items, todos
+from app.api.routes import users, items, todos_route
 from app.core.database import Base, engine
+from sqlalchemy.orm import Session
+
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
@@ -11,7 +13,7 @@ logger = setup_logger('main_logger', 'app/logs/app.log')
 routers: (str, str, str) = [
     (users.router, "/users", "users"),
     (items.router, "/items", "items"),
-    (todos.router, "/todos", "todos")
+    (todos_route.router, "/todos", "todos")
 ]
 
 for router, prefix, tag in routers:

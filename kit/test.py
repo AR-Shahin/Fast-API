@@ -21,13 +21,13 @@ async def root():
 # File: app/models/user.py
 
 
-# File: app/models/item.py
+# File: app/models/todo_repository.py
 
 
 # File: app/schemas/user.py
 
 
-# File: app/schemas/item.py
+# File: app/schemas/todo_repository.py
 
 
 # File: app/crud/user.py
@@ -52,7 +52,7 @@ def create_user(db: Session, user: UserCreate):
     db.refresh(db_user)
     return db_user
 
-# File: app/crud/item.py
+# File: app/crud/todo_repository.py
 from sqlalchemy.orm import Session
 from app.models.item import Item
 from app.schemas.item import ItemCreate

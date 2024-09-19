@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.core.config import settings
 from app.core.logger import setup_logger
-from app.api.routes import users, items, todos_route
+from app.api.routes import users_route, items, todos_route
 from app.core.database import Base, engine
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
@@ -12,7 +12,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
 routers: (str, str, str) = [
-    # (users.router, "/users", "users"),
+     (users_route.router, "/users", "users"),
     # (items.router, "/items", "items"),
     (todos_route.router, "/todos", "todos")
 ]

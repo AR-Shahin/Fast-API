@@ -6,3 +6,5 @@ pydantic-settings==2.0.3
 pymysql
 python-dotenv
 alembic
+passlib
+bcrypt

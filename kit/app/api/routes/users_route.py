@@ -4,6 +4,7 @@ from app.crud import user as user_crud
 from app.schemas.user_request import User, UserCreate
 from app.core.database import SessionLocal
 from app.core.logger import setup_logger
+
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
 router = APIRouter()

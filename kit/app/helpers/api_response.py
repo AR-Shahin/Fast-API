@@ -7,7 +7,8 @@ def send_success_response(
         status: int = 200
 ) -> Dict[str, Any]:
     return {
-        "status": status,
+        "success": True,
+        "code": status,
         "message": message,
         "data": data
     }
@@ -19,7 +20,8 @@ def send_error_response(
         status: int = 500
 ) -> Dict[str, Any]:
     return {
-        "status": status,
+        "success": False,
+        "code": status,
         "message": message,
         "data": data
     }

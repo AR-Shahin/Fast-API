@@ -5,10 +5,9 @@ from app.core.database import get_db
 from app.repositories.user_repository import get_user_by_email
 from app.helpers.api_response import *
 from app.helpers.hashing import *
-from app.helpers.jwt import create_access_token
-from fastapi.security import OAuth2PasswordRequestForm
+from app.core.jwt import create_access_token,create_token_pair
 from fastapi.security import OAuth2PasswordBearer
-from app.helpers.jwt import verify_token
+from app.core.jwt import verify_token
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
@@ -39,11 +38,27 @@ def login(request: AuthRequest, db: Session = Depends(get_db)):
 
     data = {
         "user": user,
-        "token": create_access_token(data={"sub": user.email}),
-        "token_type": "bearer"
-    }
-    return send_error_response(data, "Authentication successfully!",200)
+        "token": create_token_pair(user.email)
 
+    }
+    return send_success_response(data, "Authentication successful!",200)
+
+
+@router.post("/refresh")
+def refresh_token(token: str, db: Session = Depends(get_db)):
+    payload = verify_token(token)
+    if payload is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired refresh token")
+
+    email = payload.get("sub")
+
+    user = get_user_by_email(db, email)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+
+    new_access_token = create_access_token({"sub": email})
+
+    return {"access_token": new_access_token}
 
 @router.get("/me")
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):

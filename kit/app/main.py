@@ -30,7 +30,7 @@ init_db()
 
 @app.get("/")
 async def root():
-   # init_db()
+    # init_db()
    #  create()
     data = {
         "name": "Shahin",

@@ -32,21 +32,27 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-async def verify_token(token: str,credentials_exception):
-    # credentials_exception = HTTPException(
-    #     status_code=status.HTTP_401_UNAUTHORIZED,
-    #     detail="Could not validate credentials",
-    #     headers={"WWW-Authenticate": "Bearer"},
-    # )
+# async def verify_token(token: str,credentials_exception):
+#
+#     try:
+#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+#         email: str = payload.get("sub")
+#         if email is None:
+#             raise credentials_exception
+#         token_data = TokenData(username=email)
+#     except InvalidTokenError:
+#         raise credentials_exception
+#     user = get_user_by_email(email)
+#     if user is None:
+#         raise credentials_exception
+#     return user
+
+
+def verify_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            raise credentials_exception
-        token_data = TokenData(username=email)
-    except InvalidTokenError:
-        raise credentials_exception
-    user = get_user_by_email(email)
-    if user is None:
-        raise credentials_exception
-    return user
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None  # Token expired
+    except jwt.InvalidTokenError:
+        return None  # Invalid toke

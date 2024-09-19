@@ -6,7 +6,7 @@ from app.core.database import SessionLocal
 from app.core.logger import setup_logger
 from app.helpers.api_response import *
 from typing import List
-from app.helpers.auth import get_current_user
+from app.helpers.auth import get_current_user,oauth2_scheme
 
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
@@ -22,7 +22,7 @@ def get_db():
 
 
 @router.post("/")
-def create(user: UserCreate, db: Session = Depends(get_db)):
+def create(user: UserCreate, db: Session = Depends(get_db) ,token: str = Depends(oauth2_scheme),):
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
         return send_error_response({}, "User Already exists!", 422)
@@ -30,14 +30,17 @@ def create(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/")
-def index(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: UserCreate = Depends(get_current_user)):
+def index(skip: int = 0, limit: int = 100,
+          db: Session = Depends(get_db),
+            token: str = Depends(oauth2_scheme),
+          ):
     users = get_users(db, skip=skip, limit=limit)
     users = [UserResponse.from_orm(user) for user in users]
     return send_success_response(users, status=200)
 
 
 @router.get("/{user_id}", response_model=UserResponse)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+def read_user(user_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     db_user = get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")

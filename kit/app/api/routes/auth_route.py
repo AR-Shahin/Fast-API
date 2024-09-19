@@ -5,6 +5,9 @@ from app.core.database import get_db
 from app.repositories.user_repository import get_user_by_email
 from app.helpers.api_response import *
 from app.helpers.hashing import *
+from app.helpers.jwt import create_access_token
+from fastapi.security import OAuth2PasswordRequestForm
+
 
 router = APIRouter()
 
@@ -15,7 +18,8 @@ class AuthRequest(BaseModel):
 
 
 @router.post("/login")
-def login(request: AuthRequest, db: Session = Depends(get_db)):
+def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    return create_access_token({"sub" : "ars"})
     user = get_user_by_email(db, request.email)
 
     if user is None:
@@ -24,4 +28,9 @@ def login(request: AuthRequest, db: Session = Depends(get_db)):
     if not hash_verify(request.password, user.password):
         return send_error_response({},"Incorrect Password",status.HTTP_204_NO_CONTENT)
 
-    return user
+    data = {
+        "user": user,
+        "token": create_access_token(data={"sub": user.email})
+    }
+    return send_error_response(data, "Authentication successfully!",200)
+

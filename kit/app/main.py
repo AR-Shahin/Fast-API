@@ -12,7 +12,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
 routers: (str, str, str) = [
-    (auth_route.router, "/auth", "Authentication"),
+    (auth_route.router, "", "Authentication"),
     (users_route.router, "/users", "User"),
     (todos_route.router, "/todos", "Todo")
 ]

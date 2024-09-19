@@ -6,6 +6,7 @@ from app.core.database import SessionLocal
 from app.core.logger import setup_logger
 from app.helpers.api_response import *
 from typing import List
+from app.helpers.auth import get_current_user
 
 logger = setup_logger('main_logger', 'app/logs/app.log')
 
@@ -29,7 +30,7 @@ def create(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/")
-def index(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def index(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: UserCreate = Depends(get_current_user)):
     users = get_users(db, skip=skip, limit=limit)
     users = [UserResponse.from_orm(user) for user in users]
     return send_success_response(users, status=200)

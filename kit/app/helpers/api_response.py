@@ -14,7 +14,7 @@ def send_success_response(
 
 
 def send_error_response(
-        data: Optional[List[Any]] = None,
+        data: Union[Optional[List[Any]],Dict] = None,
         message: str = "Something went wrong!",
         status: int = 500
 ) -> Dict[str, Any]:

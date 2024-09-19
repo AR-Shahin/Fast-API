@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException,status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.repositories.user_repository import *
 from app.schemas.user_request import UserResponse, UserCreate
@@ -32,7 +32,8 @@ def create(user: UserCreate, db: Session = Depends(get_db)):
 def index(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = get_users(db, skip=skip, limit=limit)
     users = [UserResponse.from_orm(user) for user in users]
-    return send_success_response(users,status=200)
+    return send_success_response(users, status=200)
+
 
 @router.get("/{user_id}", response_model=UserResponse)
 def read_user(user_id: int, db: Session = Depends(get_db)):
@@ -41,9 +42,10 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
+
 @router.delete("/{user_id}")
 def read_user(user_id: int, db: Session = Depends(get_db)):
     db_user = delete_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return send_success_response({},"User Deleted",status.HTTP_204_NO_CONTENT)
+    return send_success_response({}, "User Deleted", status.HTTP_204_NO_CONTENT)

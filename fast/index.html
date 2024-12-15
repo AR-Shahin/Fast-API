@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Toggle with Eye Icon</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons (for the eye icon) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .eye-icon {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" placeholder="Enter password">
+            <button class="btn btn-outline-secondary eye-icon" type="button" id="togglePassword">
+              <i class="bi bi-eye-slash" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<!-- Optional jQuery (for easy DOM manipulation) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  // Toggle password visibility
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordField = document.getElementById("password");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  togglePassword.addEventListener("click", function() {
+    // Toggle the type of the password field between text and password
+    const type = passwordField.type === "password" ? "text" : "password";
+    passwordField.type = type;
+
+    // Toggle the eye icon
+    eyeIcon.classList.toggle("bi-eye");
+    eyeIcon.classList.toggle("bi-eye-slash");
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+server {
+    listen 8080;
+    server_name 103.174.51.65;
+    root /var/www/html/lara-kit/public;
+
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/lara-kit /etc/nginx/sites-enabled/
+
+
+server {
+    listen 8080;
+    server_name 103.174.51.65;
+    root /var/www/html/lara-kit/public;  # Ensure this points to the 'public' directory of your Laravel app
+
+    index index.php index.html;
+
+    # Laravel's public directory routing
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Handling PHP requests
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;  # Common include for PHP-FPM configuration
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;  # Ensure this is correct (or use 127.0.0.1:9000 if using TCP)
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  # Use $document_root for better flexibility
+        include fastcgi_params;
+    }
+
+    # Deny access to hidden files (like .env, .git, etc.)
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+    # Make sure Laravel's 'storage' and 'bootstrap/cache' directories are writable
+    location ~ ^/storage/ {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ ^/vendor/ {
+        try_files $uri $uri/ =404;
+    }
+
+    # Optimize handling for static assets (images, CSS, JS)
+    location ~* \.(?:css|js|jpe?g|jpg|gif|png|svg|ico|webp)$ {
+        expires 1y;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
+    # Custom error page (optional, you can customize)
+    error_page 404 /404.html;
+    location = /404.html {
+        root /var/www/html/lara-kit/public;
+        internal;
+    }
+}

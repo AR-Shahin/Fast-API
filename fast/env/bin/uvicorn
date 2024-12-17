@@ -1,4 +1,4 @@
-#!/home/ars/Documents/Python/fast/env/bin/python3
+#!/home/ars/Documents/Python/Fast-API/fast/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
